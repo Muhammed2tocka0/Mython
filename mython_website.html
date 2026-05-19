@@ -1,0 +1,249 @@
+<title>Mython</title>
+<link rel="icon" href="mython.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);color:var(--color-text-primary)}
+.hero{text-align:center;padding:3rem 2rem 2rem}
+.hero h1{font-size:42px;font-weight:500;letter-spacing:-1px;margin-bottom:.5rem}
+.hero .sub{font-size:17px;color:var(--color-text-secondary);margin-bottom:1.5rem}
+.badge{display:inline-block;background:#EEEDFE;color:#3C3489;font-size:12px;padding:4px 12px;border-radius:20px;margin-bottom:1rem}
+.pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.pill{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:20px;padding:5px 14px;font-size:13px;color:var(--color-text-secondary)}
+.section{padding:2rem}
+.section h2{font-size:20px;font-weight:500;margin-bottom:1.25rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:2rem}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1rem 1.25rem}
+.card .icon{font-size:22px;margin-bottom:.5rem}
+.card h3{font-size:14px;font-weight:500;margin-bottom:.25rem}
+.card p{font-size:13px;color:var(--color-text-secondary);line-height:1.5}
+.code-block{background:#1e1e2e;border-radius:var(--border-radius-lg);padding:1.25rem 1.5rem;margin-bottom:1.5rem;overflow:hidden}
+.code-block pre{font-family:var(--font-mono);font-size:13px;line-height:1.8;color:#cdd6f4}
+.kw{color:#cba6f7}.fn{color:#89b4fa}.str{color:#a6e3a1}.num{color:#fab387}.kwarg{color:#f38ba8}.comment{color:#6c7086}.bool{color:#fab387}
+.divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:0}
+.tabs{display:flex;gap:4px;margin-bottom:1.25rem;flex-wrap:wrap}
+.tab{padding:6px 14px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);color:var(--color-text-secondary)}
+.tab.active{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.ref-item{border-bottom:0.5px solid var(--color-border-tertiary);padding:.75rem 0}
+.ref-item:last-child{border-bottom:none}
+.ref-item code{font-family:var(--font-mono);font-size:13px;color:#89b4fa;background:#1e1e2e;padding:2px 8px;border-radius:4px}
+.ref-item .desc{font-size:13px;color:var(--color-text-secondary);margin-top:4px}
+.install-box{background:#1e1e2e;border-radius:var(--border-radius-lg);padding:1rem 1.5rem;display:flex;align-items:center;gap:1rem;margin-bottom:1rem}
+.install-box pre{font-family:var(--font-mono);font-size:13px;color:#a6e3a1;flex:1}
+.step{display:flex;gap:12px;align-items:flex-start;margin-bottom:1rem}
+.step-num{width:28px;height:28px;border-radius:50%;background:#EEEDFE;color:#3C3489;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;flex-shrink:0}
+.step-text{font-size:14px;padding-top:4px;color:var(--color-text-secondary)}
+.step-text strong{color:var(--color-text-primary);font-weight:500}
+.pane{display:none}.pane.active{display:block}
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#fdb6b6,rgb(251, 255, 193));z-index:-1}
+</style>
+
+<div class="hero">
+  <div class="badge">v1.0 beta</div>
+  <h1><img src="mython.png" alt="Mython" style="width: 48px; height: 48px;"> Mython</h1>
+  <p class="sub">Простой язык программирования с GUI<br>Пишешь — запускаешь. Никаких лишних настроек.</p>
+  <div class="pills">
+    <span class="pill"><i class="ti ti-window" aria-hidden="true"></i> GUI окна</span>
+    <span class="pill"><i class="ti ti-photo" aria-hidden="true"></i> Картинки</span>
+    <span class="pill"><i class="ti ti-player-play" aria-hidden="true"></i> Физика</span>
+    <span class="pill"><i class="ti ti-keyboard" aria-hidden="true"></i> Клавиши</span>
+    <span class="pill"><i class="ti ti-brand-vscode" aria-hidden="true"></i> VS Code</span>
+  </div>
+</div>
+
+<hr class="divider">
+
+<div class="section">
+  <div class="tabs">
+    <button class="tab active" onclick="show('overview')">Обзор</button>
+    <button class="tab" onclick="show('syntax')">Синтаксис</button>
+    <button class="tab" onclick="show('gui')">GUI</button>
+    <button class="tab" onclick="show('game')">Игра / Физика</button>
+    <button class="tab" onclick="show('install')">Установка</button>
+    <button class="tab" onclick="show('download')">Скачать</button>
+    <button class="tab" onclick="show('help')">Помощь</button>
+  </div>
+
+  <div id="overview" class="pane active">
+    <div class="cards">
+      <div class="card">
+        <div class="icon">📝</div>
+        <h3>Простой синтаксис</h3>
+        <p>Переменные, условия, циклы, функции — всё как в Python, но проще.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🖥️</div>
+        <h3>GUI из коробки</h3>
+        <p>Одна строка <code style="font-size:12px">window()</code> — и окно готово. Кнопки, фон, текст.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🎮</div>
+        <h3>Игровая физика</h3>
+        <p>Гравитация, прыжки, блоки, коллизии — пиши игры без движка.</p>
+      </div>
+      <div class="card">
+        <div class="icon">⌨️</div>
+        <h3>Управление</h3>
+        <p>Любая клавиша — обработчик. Держишь — плавно двигается.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔌</div>
+        <h3>VS Code плагин</h3>
+        <p>Подсветка, кнопка ▶, F5 для запуска. Всё уже внутри.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🐍</div>
+        <h3>На Python</h3>
+        <p>Нужен только Python 3. Опционально — Pillow для PNG.</p>
+      </div>
+    </div>
+
+    <h2>Быстрый старт</h2>
+    <div class="code-block"><pre><span class="comment"># hello.myt</span>
+<span class="kw">var</span> name = <span class="str">"Mython"</span>
+
+<span class="kw">function</span> <span class="fn">greet</span>:
+    <span class="fn">print</span>(<span class="str">"Привет из "</span> + name + <span class="str">"!"</span>)
+
+<span class="fn">window</span>(<span class="num">400</span>, <span class="num">300</span>, <span class="kwarg">title</span>: <span class="str">"Мой app"</span>)
+<span class="fn">background</span>(<span class="kwarg">color</span>: <span class="str">"#f0f4ff"</span>)
+<span class="fn">button</span>(<span class="str">"Поздороваться"</span>, <span class="kwarg">onclick</span>: greet, <span class="kwarg">color</span>: <span class="str">"#4a90d9"</span>, <span class="kwarg">textcolor</span>: <span class="str">"white"</span>)</pre></div>
+  </div>
+
+  <div id="syntax" class="pane">
+    <h2>Переменные</h2>
+    <div class="code-block"><pre><span class="kw">var</span> x = <span class="num">5</span>
+<span class="kw">var</span> name = <span class="str">"Привет"</span>
+<span class="kw">var</span> flag = <span class="bool">true</span>
+x = x + <span class="num">1</span></pre></div>
+
+    <h2>Условия</h2>
+    <div class="code-block"><pre><span class="kw">if</span> x > <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">"больше"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"меньше или равно"</span>)</pre></div>
+
+    <h2>Цикл</h2>
+    <div class="code-block"><pre><span class="kw">loop</span> <span class="num">10</span>:
+    <span class="fn">print</span>(<span class="str">"привет"</span>)</pre></div>
+
+    <h2>Функции</h2>
+    <div class="code-block"><pre><span class="kw">function</span> <span class="fn">greet</span>:
+    <span class="fn">print</span>(<span class="str">"Привет!"</span>)
+
+<span class="kw">function</span> <span class="fn">add</span>(a, b):
+    <span class="kw">return</span> a + b</pre></div>
+
+    <h2>Операторы</h2>
+    <div class="ref-item"><code>+  -  *  /</code><div class="desc">Арифметика</div></div>
+    <div class="ref-item"><code>==  !=  &lt;  &gt;  &lt;=  &gt;=</code><div class="desc">Сравнение</div></div>
+    <div class="ref-item"><code>and  or  not</code><div class="desc">Логика</div></div>
+  </div>
+
+  <div id="gui" class="pane">
+    <h2>Окно и фон</h2>
+    <div class="code-block"><pre><span class="fn">window</span>(<span class="num">800</span>, <span class="num">600</span>, <span class="kwarg">title</span>: <span class="str">"Моё приложение"</span>)
+<span class="fn">background</span>(<span class="kwarg">color</span>: <span class="str">"#f0f4ff"</span>)
+<span class="fn">background</span>(<span class="kwarg">color</span>: <span class="str">"white"</span>)</pre></div>
+
+    <h2>Кнопки</h2>
+    <div class="code-block"><pre><span class="fn">button</span>(<span class="str">"Нажми!"</span>, <span class="kwarg">onclick</span>: myFunc)
+<span class="fn">button</span>(<span class="str">"Цветная"</span>, <span class="kwarg">onclick</span>: myFunc, <span class="kwarg">color</span>: <span class="str">"#4a90d9"</span>, <span class="kwarg">textcolor</span>: <span class="str">"white"</span>)</pre></div>
+
+    <h2>Клавиши</h2>
+    <div class="code-block"><pre><span class="fn">press_key</span>(<span class="str">"space"</span>):
+    <span class="fn">print</span>(<span class="str">"Пробел!"</span>)
+
+<span class="fn">press_key</span>(<span class="str">"enter"</span>):
+    <span class="fn">print</span>(<span class="str">"Enter!"</span>)</pre></div>
+
+    <h2>Доступные клавиши</h2>
+    <div class="ref-item"><code>"space"  "enter"  "esc"</code><div class="desc">Основные</div></div>
+    <div class="ref-item"><code>"up"  "down"  "left"  "right"</code><div class="desc">Стрелки</div></div>
+    <div class="ref-item"><code>"f1" … "f12"</code><div class="desc">Функциональные</div></div>
+    <div class="ref-item"><code>"a" … "z"  "0" … "9"</code><div class="desc">Буквы и цифры</div></div>
+    <div class="ref-item"><code>"tab"  "backspace"  "delete"</code><div class="desc">Прочие</div></div>
+  </div>
+
+  <div id="game" class="pane">
+    <h2>Добавить картинку</h2>
+    <div class="code-block"><pre><span class="comment"># Обычная картинка</span>
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"coin"</span>, <span class="kwarg">size</span>: <span class="num">32</span>, <span class="kwarg">src</span>: <span class="str">"coin.png"</span>, <span class="kwarg">x</span>: <span class="num">200</span>, <span class="kwarg">y</span>: <span class="num">100</span>)
+
+<span class="comment"># С физикой — падает, прыгает</span>
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"player"</span>, <span class="kwarg">size</span>: <span class="num">48</span>, <span class="kwarg">src</span>: <span class="str">"player.png"</span>, <span class="kwarg">x</span>: <span class="num">100</span>, <span class="kwarg">y</span>: <span class="num">50</span>, <span class="kwarg">physics</span>: <span class="bool">true</span>)
+
+<span class="comment"># Блок — твёрдый, останавливает физику</span>
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"ground"</span>, <span class="kwarg">size</span>: <span class="num">32</span>, <span class="kwarg">src</span>: <span class="str">"ground.png"</span>, <span class="kwarg">x</span>: <span class="num">0</span>, <span class="kwarg">y</span>: <span class="num">368</span>, <span class="kwarg">block</span>: <span class="bool">true</span>)</pre></div>
+
+    <h2>Движение и прыжок</h2>
+    <div class="code-block"><pre><span class="fn">move_x</span>(<span class="str">"player"</span>, <span class="num">5</span>)   <span class="comment"># вправо</span>
+<span class="fn">move_x</span>(<span class="str">"player"</span>, <span class="num">-5</span>)  <span class="comment"># влево</span>
+<span class="fn">move_y</span>(<span class="str">"player"</span>, <span class="num">-5</span>)  <span class="comment"># вверх</span>
+<span class="fn">jump</span>(<span class="str">"player"</span>)        <span class="comment"># прыжок (только на земле)</span></pre></div>
+
+    <h2>Коллизии</h2>
+    <div class="code-block"><pre><span class="fn">on_collide</span>(<span class="str">"player"</span>, <span class="str">"coin"</span>):
+    <span class="fn">print</span>(<span class="str">"Монета!"</span>)</pre></div>
+
+    <h2>Пример платформера</h2>
+    <div class="code-block"><pre><span class="fn">window</span>(<span class="num">600</span>, <span class="num">400</span>, <span class="kwarg">title</span>: <span class="str">"Платформер"</span>)
+<span class="fn">background</span>(<span class="kwarg">color</span>: <span class="str">"#87CEEB"</span>)
+
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"ground"</span>, <span class="kwarg">size</span>: <span class="num">32</span>, <span class="kwarg">src</span>: <span class="str">"ground.png"</span>, <span class="kwarg">x</span>: <span class="num">0</span>, <span class="kwarg">y</span>: <span class="num">368</span>, <span class="kwarg">block</span>: <span class="bool">true</span>)
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"player"</span>, <span class="kwarg">size</span>: <span class="num">48</span>, <span class="kwarg">src</span>: <span class="str">"player.png"</span>, <span class="kwarg">x</span>: <span class="num">80</span>, <span class="kwarg">y</span>: <span class="num">100</span>, <span class="kwarg">physics</span>: <span class="bool">true</span>)
+<span class="fn">image</span>(<span class="kwarg">name</span>: <span class="str">"coin"</span>,   <span class="kwarg">size</span>: <span class="num">24</span>, <span class="kwarg">src</span>: <span class="str">"coin.png"</span>,   <span class="kwarg">x</span>: <span class="num">300</span>, <span class="kwarg">y</span>: <span class="num">330</span>)
+
+<span class="fn">press_key</span>(<span class="str">"left"</span>):   <span class="fn">move_x</span>(<span class="str">"player"</span>, <span class="num">-5</span>)
+<span class="fn">press_key</span>(<span class="str">"right"</span>):  <span class="fn">move_x</span>(<span class="str">"player"</span>, <span class="num">5</span>)
+<span class="fn">press_key</span>(<span class="str">"space"</span>):  <span class="fn">jump</span>(<span class="str">"player"</span>)
+
+<span class="fn">on_collide</span>(<span class="str">"player"</span>, <span class="str">"coin"</span>):
+    <span class="fn">print</span>(<span class="str">"Монета собрана!"</span>)</pre></div>
+  </div>
+
+  <div id="install" class="pane">
+
+
+    <h2 style="margin-top:1.5rem">Установка</h2>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Скачай <strong>mython-1.0.0.vsix</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">В VS Code: <strong>Extensions → ··· → Install from VSIX</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">Открой <strong>.myt</strong> файл и нажми <strong>F5</strong> </strong>или нажав кнопку Run Mython File<strong></div>
+    </div>
+
+    <h2 style="margin-top:1.5rem">Требования</h2>
+    <div class="ref-item"><code>Python 3.11+</code><div class="desc">Обязательно</div></div>
+    <div class="ref-item"><code>pip install pillow</code><div class="desc">Опционально — для PNG картинок с ресайзом</div></div>
+  </div>
+  <div id="download" class="pane">
+    <h2>Скачать Mython</h2>
+    <div class="install-box">
+      <pre>mython-1.0.0.vsix</pre>
+      <a href="mython-1.0.0.vsix" download style="background:#4a90d9;color:white;padding:6px 14px;border-radius:var(--border-radius-md);font-size:13px;text-decoration:none;">Скачать</a>
+    </div>
+  </div>
+  <div id="help" class="pane">
+    <h2>Помощь и поддержка</h2>
+    <p>Если у тебя возникли вопросы или проблемы с Mython, не стесняйся обращаться за помощью:</p>
+      <ul>
+        <li><a href="https://t.me/+Cm6-au5UcqhhMTE6">Чат поддержки в Telegram</a></li>
+      </ul>
+    <p>Мы всегда рады помочь!</p>
+    <p>Следите за обновлениями и новостями на нашем <a href="https://t.me/+1q3fOgABNnA0ZWVi">Telegram-канале</a>.</p>
+  </div>
+
+<script>
+function show(id) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+</script>
