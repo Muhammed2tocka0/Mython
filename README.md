@@ -1,2 +1,0 @@
-# Mython
-New proqram launch
